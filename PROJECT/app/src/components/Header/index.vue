@@ -60,7 +60,26 @@
 </template>
 
 <script>
+export default {
+  name:"",
 
+  data(){
+    return {
+      keyword:'',
+    }
+  },
+
+  methods : {
+    goSearch(){
+      //路由传递参数 1.字符串
+      //this.$router.push("/search"+this.keyword+"?k="+this.keyword.toUpperCase());
+      // 模板字符串
+      //this.$router.push('search/${this.keyword}?k=${this.keyword.toUpperCase()}')
+
+      this.$router.push({name:'search', params:{keyword:this.keyword},query:{k:this.keyword.toUpperCase()}})
+    }
+  }
+}
 </script>
 
 <style scoped lang="less">

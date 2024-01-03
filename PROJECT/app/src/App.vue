@@ -2,7 +2,8 @@
   <div>
     <Header></Header>
     <router-view></router-view>
-    <Footer></Footer>
+    <!-- 在HOME Search显示，在登录注册隐藏 -->
+    <Footer v-show="$route.meta.show"></Footer>
   </div>
 </template>
 <script>

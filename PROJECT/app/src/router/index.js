@@ -9,24 +9,47 @@ import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Search from '@/pages/Search'
 
+//重写 push|replace
+
+let originPush = VueRouter.prototype.push;
+
+VueRouter.prototype.push = (location, resolve, reject) => {
+  if(resolve&&reject) {
+    originPush.call(this,location,resolve,reject)
+  } else {
+    originPush.call(this, location, () => {}, () => {})
+  }
+}
+
 export default new VueRouter({
 
   routes:[
     {
       path:"/home",
-      component:Home
+      component:Home,
+      meta:{show:true}
     },
     {
       path:"/login",
-      component:Login
+      component:Login,
+      meta:{show:false}
     },
     {
       path:"/register",
-      component:Register
+      component:Register,
+      meta:{show:false}
     },
     {
-      path:"/search",
-      component:Search
+      path:"/search:keyword?",
+      component:Search,
+      meta:{show:true},
+      name:'search',
+      props:true,
     },
+    // 重定向
+    {
+      path:'*',
+      redirect:"/home"
+    }
   ]
 })
